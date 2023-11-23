@@ -1,14 +1,18 @@
 import "./App.css";
+import {Card} from "@tremor/react"
+import {ingresos, gastos} from "./mooks/info.json"
+import { MyTable } from "./components/MyTable";
+import { MyChart } from "./components/MyChart";
+import { MyDonut } from "./components/MyDonut";
 
 function App() {
   return (
     <>
       <main>
-        <div className="tabla">Tablas</div>
-        <div className="dona">Dona 1</div>
-        <div className="dona">Dona 2</div>
-        <div className="dona">Dona 3</div>
-        <div className="graf">Grafico</div>
+        <MyTable head={['Fecha', 'Monto']} data={ingresos}/>
+        <Card className="dona1"><MyDonut /></Card>
+        <Card className="dona2">Dona 2</Card>
+        <MyChart chartdata={gastos}/>
       </main>
     </>
   );
