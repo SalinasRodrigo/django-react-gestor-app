@@ -9,10 +9,15 @@ class Gasto (models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
+  def __str__(self):
+    return self.fecha
+
 class Ingreso (models.Model):
   descripcion = models.CharField(max_length=250)
   cantidad = models.IntegerField()
   fecha = models.DateField()
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
-
+  
+  def __str__(self):
+    return self.fecha

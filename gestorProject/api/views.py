@@ -1,25 +1,45 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
+@api_view(['GET'])
 def getRoutes(request):
     routes = [
         {
-            "Endpoint": "//",
+            "Endpoint": "/all/",
             "method": "GET",
             "body": None,
-            "description": "Returns an array of notes",
+            "description": "Retorna Todos los ingresos y gastos del usuario.",
         },
         {
-            "Endpoint": "//id",
+            "Endpoint": "/all/date",
             "method": "GET",
             "body": None,
-            "description": "Returns a single note object",
+            "description": "retorna todos los ingresos y gastos de la fecha <date>",
         },
         {
-            "Endpoint": "//create/",
+            "Endpoint": "/igresos/create/",
             "method": "POST",
             "body": {"body": ""},
-            "description": "Creates new note with data sent in post request",
+            "description": "Crea una nueva entrada de ingresos",
+        },
+        {
+            "Endpoint": "/gastos/create/",
+            "method": "POST",
+            "body": {"body": ""},
+            "description": "Crea una nueva entrada de gastos",
+        },
+        {
+            "Endpoint": "/igresos/id/update/",
+            "method": "POST",
+            "body": {"body": ""},
+            "description": "Actualiza una entrada de ingresos",
+        },
+        {
+            "Endpoint": "/gastos/id/update/",
+            "method": "POST",
+            "body": {"body": ""},
+            "description": "Actualiza una entrada de ingresos",
         },
         {
             "Endpoint": "//id/update/",
@@ -34,5 +54,5 @@ def getRoutes(request):
             "description": "Deletes and exiting note",
         },
     ]
-    return JsonResponse(routes, safe=False)
+    return Response(routes)
 
