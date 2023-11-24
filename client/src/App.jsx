@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <main>
-        <MyTable head={['Fecha', 'Monto']} data={ingresos}/>
+        <MyTable head={['Fecha', 'Monto']} ings={ingresos} gast={gastos}/>
         <Card className="dona1"><MyDonut /></Card>
         <Card className="dona2">Dona 2</Card>
         <MyChart chartdata={gastos}/>
