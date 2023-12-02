@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Gasto, Ingreso
+from .models import Movimiento
 
-admin.site.register(Gasto)
-admin.site.register(Ingreso)
+admin.site.register(Movimiento)
 # Register your models here.
