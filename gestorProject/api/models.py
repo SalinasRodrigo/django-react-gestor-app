@@ -14,5 +14,9 @@ class Suma (models.Model):
   cantidad = models.IntegerField()
   month = models.DateField()
 
+class Balance (models.Model):
+  cantidad = models.IntegerField()
+  tipo = models.CharField(max_length=10)
+
   
   

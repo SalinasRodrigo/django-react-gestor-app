@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from .models import Movimiento, Suma
 from django.db.models import Sum, Count
 from django.db.models.functions import  TruncMonth
-from .serializaers import MovSerializer, SumSerializer
+from .serializaers import MovSerializer, SumSerializer, BalanceSerializer
 import json
 
 
@@ -82,4 +82,20 @@ def getByYear(request):
     serialSum = SumSerializer(result, many = True)
     print(serialSum.data)
     return Response(serialSum.data)
+
+@api_view(['GET'])
+def getBalance(request):
+    result = (Movimiento.objects.all()
+              .values('tipo')
+              .annotate(cantidad=Sum('cantidad'))
+              .order_by())
+    for i in result:
+        if (i['tipo'] == 0):
+            i['tipo'] = 'gastos'
+        if (i['tipo'] == 1):
+            i['tipo'] = 'ingreso'
+    print(result)
+    serialBalan = BalanceSerializer(result, many = True)
+    print(serialBalan.data)
+    return Response(serialBalan.data)
 
