@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .models import Movimiento, Suma
+from django.db.models import Sum, Count
+from django.db.models.functions import  TruncMonth
+from .serializaers import MovSerializer, SumSerializer
+import json
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -55,4 +61,25 @@ def getRoutes(request):
         },
     ]
     return Response(routes)
+
+@api_view(['GET'])
+def getAll (request):
+
+    movimientos = Movimiento.objects.all()
+    print("movimientos: ", movimientos)
+    serialMov = MovSerializer(movimientos, many=True)
+    print("SerialMov: ",serialMov.data)
+    return Response(serialMov.data)
+
+@api_view(['GET'])
+def getByYear(request):
+    result = (Movimiento.objects.all()
+              .annotate(month=TruncMonth('fecha'))
+              .values('month')
+              .annotate(cantidad=Sum('cantidad'))
+              .order_by())
+    print(result)
+    serialSum = SumSerializer(result, many = True)
+    print(serialSum.data)
+    return Response(serialSum.data)
 
