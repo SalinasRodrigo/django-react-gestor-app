@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
   path('', views.getRoutes, name = 'routes'),
-  path('all/', views.getAll, name = 'all_mov'),
-  path('movs/', views.getByYear, name = 'by_year'),
-  path('bal/',views.getBalance, name='balance' )
+  path('gastos/', views.getAllGastos, name = 'gastos'),
+  path('gastos/year/', views.getGastosByYear, name = 'gastos_year'),
+  path('ingresos/', views.getAllIngresos, name = 'ingresos'),
+  path('ingresos/year/', views.getIngresosByYear, name = 'ingresos_year'),
+  path('balance/',views.getBalance, name='balance' )
 ]
