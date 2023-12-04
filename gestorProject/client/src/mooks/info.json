@@ -1,0 +1,58 @@
+{
+  "ingresos":[
+    {
+      "monto": 3000000,
+      "fecha": "Jan 22"
+    }
+  ],
+  "gastos":[
+    {
+      "monto": 150000,
+      "fecha": "ENE."
+    },
+    {
+      "monto": 200000,
+      "fecha": "FEB."
+    },
+    {
+      "monto": 100000,
+      "fecha": "MAR."
+    },
+    {
+      "monto": 150000,
+      "fecha": "ABR."
+    },
+    {
+      "monto": 200000,
+      "fecha": "MAY."
+    },
+    {
+      "monto": 100000,
+      "fecha": "JUN."
+    },
+    {
+      "monto": 150000,
+      "fecha": "JUL"
+    },
+    {
+      "monto": 200000,
+      "fecha": "AGS."
+    },
+    {
+      "monto": 100000,
+      "fecha": "SEP."
+    },
+    {
+      "monto": 150000,
+      "fecha": "OCT."
+    },
+    {
+      "monto": 200000,
+      "fecha": "NOV."
+    },
+    {
+      "monto": 100000,
+      "fecha": "DEC."
+    }
+  ]
+}
