@@ -17,6 +17,7 @@ import { useMovs } from "../hooks/useMovs";
 
 export const MyTable = ({head}) => {
   const {ings, gast} = useMovs()
+
   return(
     <Card className="tab">
       <TabGroup>
@@ -34,18 +35,18 @@ export const MyTable = ({head}) => {
                   ))}
                 </TableRow>
               </TableHead>
-              <TableBody>
+              {ings ? <TableBody>
                 {ings.map((item)=>(
-                  <TableRow key={item.name}>
+                  <TableRow key={item.id}>
                     <TableCell>
                       {item.fecha}
                     </TableCell>
                     <TableCell>
-                      {item.monto}
+                      {item.cantidad}
                     </TableCell>
                   </TableRow>
                 ))}
-              </TableBody>
+              </TableBody>: <></>}
             </Table>
           </TabPanel>
           <TabPanel>
@@ -57,18 +58,18 @@ export const MyTable = ({head}) => {
                   ))}
                 </TableRow>
               </TableHead>
-              <TableBody>
+              {gast ?<TableBody>
                 {gast.map((item)=>(
                   <TableRow key={item.name}>
                     <TableCell>
                       {item.fecha}
                     </TableCell>
                     <TableCell>
-                      {item.monto}
+                      {item.cantidad}
                     </TableCell>
                   </TableRow>
                 ))}
-              </TableBody>
+              </TableBody>:<></>}
             </Table>
           </TabPanel>
         </TabPanels>

@@ -4,7 +4,7 @@ import { useMovs } from "../hooks/useMovs";
 
 
 export const MyChart = () => {
-  const {gast} = useMovs()
+  const {gast, ings} = useMovs()
 
   const valueFormatter = function(number) {
     return "Gs. " + new Intl.NumberFormat("py").format(number).toString();
@@ -18,7 +18,7 @@ export const MyChart = () => {
         data={gast}
         index="fecha"
         colors={["indigo"]}
-        categories={["monto"]}
+        categories={["cantidad"]}
         valueFormatter={valueFormatter}
       />
     </Card>
