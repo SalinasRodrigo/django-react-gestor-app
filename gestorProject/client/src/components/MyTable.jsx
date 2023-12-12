@@ -12,6 +12,7 @@ import {
   Tab,
   TabPanel,
   TabPanels,
+  Title,
 } from "@tremor/react";
 import { useMovs } from "../hooks/useMovs";
 
@@ -22,6 +23,7 @@ export const MyTable = ({head}) => {
     <Card className="tab">
       <TabGroup>
         <TabList>
+          <Title>Mis movimientos</Title>
           <Tab>Ingresos</Tab>
           <Tab>Gastos</Tab>
         </TabList>

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { AreaChart, Card, Title } from "@tremor/react"
+import { AreaChart, Card, Tab, TabGroup, TabList, TabPanel, TabPanels, Title } from "@tremor/react"
 import { useMovs } from "../hooks/useMovs";
 
 
@@ -12,15 +12,39 @@ export const MyChart = () => {
 
   return(
     <Card className="chart">
-      <Title>Gastos</Title>
-      <AreaChart
-        className="h-72 mt-4"
-        data={gast}
-        index="fecha"
-        colors={["indigo"]}
-        categories={["cantidad"]}
-        valueFormatter={valueFormatter}
-      />
+      <TabGroup>
+        <TabList>
+          <Title>Movimientos mesuales</Title>
+          <Tab>Gastos</Tab>
+          <Tab>Ingresos</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            {gast ? 
+            <AreaChart
+              className="h-72"
+              data={gast}
+              index="fecha"
+              colors={["red"]}
+              categories={["cantidad"]}
+              valueFormatter={valueFormatter}
+            /> :
+            <></>}
+          </TabPanel>
+          <TabPanel>
+            {gast ? 
+              <AreaChart
+                className="h-72"
+                data={ings}
+                index="fecha"
+                colors={["green"]}
+                categories={["cantidad"]}
+                valueFormatter={valueFormatter}
+              /> :
+            <></>}
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </Card>
   )
 }

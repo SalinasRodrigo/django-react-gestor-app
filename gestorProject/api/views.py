@@ -49,7 +49,7 @@ def getRoutes(request):
         },
         {
             "Endpoint": "/update/id/",
-            "method": "POST",
+            "method": "PUT",
             "body": {"body": ""},
             "description": "Actualiza un movimiento",
         },
@@ -65,7 +65,7 @@ def getRoutes(request):
 @api_view(['GET'])
 def getAllGastos (request):
     movimientos = (Movimiento.objects.all()
-                   .filter(fecha__month=12, tipo=0))
+                   .filter(tipo=0))
     print("movimientos: ", movimientos)
     serialMov = MovSerializer(movimientos, many=True)
     print("SerialMov: ",serialMov.data)
@@ -121,3 +121,27 @@ def getBalance(request):
     print(serialBalan.data)
     return Response(serialBalan.data)
 
+@api_view(['PUT'])
+def updateMov (request, pk):
+    data = request.data
+    mov = Movimiento.objects.get(id=pk)
+    serialMov = MovSerializer(instance=mov, data=data)
+
+    if serialMov.is_valid():
+        serialMov.save()
+
+    return Response(serialMov.data)   
+
+@api_view(['POST'])
+def createMov (request):
+    data = json.loads(request.data)
+    mov = Movimiento.objects.create(
+        descripcion = data['descripcion'],
+        cantidad = data['cantidad'],
+        fecha = data['fecha'],
+        tipo = 0
+    )
+
+    serialMov = MovSerializer(mov, many=False)
+
+    return Response(serialMov.data)

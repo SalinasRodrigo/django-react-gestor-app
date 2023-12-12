@@ -9,7 +9,7 @@ export function MovProvider ({children}) {
   const [gast, setGastos] = useState(null);
 
   const getGastos = () => {
-    fetch('http://127.0.0.1:8000/api/gastos/')
+    fetch('/api/gastos/')
       .then((res) => res.json())
       .then((response)=>{
         const mov = response
@@ -18,7 +18,7 @@ export function MovProvider ({children}) {
   }
 
   const getIngresos = () => {
-    fetch('http://127.0.0.1:8000/api/ingresos/')
+    fetch('/api/ingresos/')
       .then((res) => res.json())
       .then((response)=>{
         const mov = response
