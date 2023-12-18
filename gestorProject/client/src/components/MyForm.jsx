@@ -1,10 +1,16 @@
-import { Card } from "@tremor/react"
-import { useState } from "react"
-
+import {
+  Card,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Title,
+} from "@tremor/react";
+import { useMovs } from "../hooks/useMovs";
 
 export const MyForm = () => {
-
-  const [mov, setMov] = useState(null)
+  const {setIngresos, setGastos } = useMovs();
 
   // const updateMove = () => {
   //   fetch(`/api/update/${id}/`,{
@@ -19,8 +25,9 @@ export const MyForm = () => {
   const createMove = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    const newMov = JSON.stringify(Object.fromEntries(data));
-    setMov(newMov)
+    const newMov = Object.fromEntries(data);
+    newMov.cantidad = parseInt(newMov.cantidad);
+
     fetch(`/api/create/`,{
       method: 'POST',
       headers: {
@@ -28,20 +35,84 @@ export const MyForm = () => {
       },
       body: JSON.stringify(newMov)
     })
-    event.target.reset()
-  }
 
-  return(
+    if (event.target.tipo.value == 1) {
+      setIngresos((prevState) => [
+        ...prevState,
+        {
+          ...newMov,
+          id: prevState[prevState.length - 1].id + 1,
+          tipo: 1,
+        },
+      ]);
+    } else {
+      setGastos((prevState) => [
+        ...prevState,
+        {
+          ...newMov,
+          id: prevState[prevState.length - 1].id + 1,
+          tipo: 0,
+        },
+      ]);
+    }
+    event.target.reset();
+  };
+
+  return (
     <Card className="formulario">
-          <form onSubmit={createMove}>
-            <label htmlFor="descripcion">Descripción</label>
-            <input className="my-input" type="text" name="descripcion" required />
-            <label htmlFor="cantidad">Cantidad</label>
-            <input className="my-input" type="number" name="cantidad" required  />
-            <label htmlFor="fecha">Fecha</label>
-            <input className="my-input" type="date" name="fecha" required  />
-            <button type="submit">submit</button>
-          </form>
+      <TabGroup>
+        <TabList variant="solid" className="pl-2 pr-2">
+          <Title>Nuevo Movimiento</Title>
+          <Tab>Ingresos</Tab>
+          <Tab>Gastos</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <form onSubmit={createMove}>
+              <label htmlFor="descripcion">Descripción</label>
+              <input
+                className="my-input"
+                type="text"
+                name="descripcion"
+                required
+              />
+              <label htmlFor="cantidad">Cantidad</label>
+              <input
+                className="my-input"
+                type="number"
+                name="cantidad"
+                required
+              />
+              <label htmlFor="fecha">Fecha</label>
+              <input className="my-input" type="date" name="fecha" required />
+              <input type="hidden" name="tipo" value={1} />
+              <button type="submit">submit</button>
+            </form>
+          </TabPanel>
+          <TabPanel>
+            <form onSubmit={createMove}>
+              <label htmlFor="descripcion">Descripción</label>
+              <input
+                className="my-input"
+                type="text"
+                name="descripcion"
+                required
+              />
+              <label htmlFor="cantidad">Cantidad</label>
+              <input
+                className="my-input"
+                type="number"
+                name="cantidad"
+                required
+              />
+              <label htmlFor="fecha">Fecha</label>
+              <input className="my-input" type="date" name="fecha" required />
+              <input type="hidden" name="tipo" value={0} />
+              <button type="submit">submit</button>
+            </form>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </Card>
-  )
-}
+  );
+};

@@ -66,17 +66,13 @@ def getRoutes(request):
 def getAllGastos (request):
     movimientos = (Movimiento.objects.all()
                    .filter(tipo=0))
-    print("movimientos: ", movimientos)
     serialMov = MovSerializer(movimientos, many=True)
-    print("SerialMov: ",serialMov.data)
     return Response(serialMov.data)
 
 @api_view(['GET'])
 def getAllIngresos (request):
     movimientos = Movimiento.objects.all().filter( tipo = 1 )
-    print("movimientos: ", movimientos)
     serialMov = MovSerializer(movimientos, many=True)
-    print("SerialMov: ",serialMov.data)
     return Response(serialMov.data)
 
 @api_view(['GET'])
@@ -87,9 +83,7 @@ def getIngresosByYear(request):
               .values('month')
               .annotate(cantidad=Sum('cantidad'))
               .order_by('month'))
-    print(result)
     serialSum = SumSerializer(result, many = True)
-    print(serialSum.data)
     return Response(serialSum.data)
 
 @api_view(['GET'])
@@ -100,9 +94,7 @@ def getGastosByYear(request):
               .values('month')
               .annotate(cantidad=Sum('cantidad'))
               .order_by('month'))
-    print(result)
     serialSum = SumSerializer(result, many = True)
-    print(serialSum.data)
     return Response(serialSum.data)
 
 @api_view(['GET'])
@@ -116,9 +108,7 @@ def getBalance(request):
             i['tipo'] = 'gastos'
         if (i['tipo'] == 1):
             i['tipo'] = 'ingreso'
-    print(result)
     serialBalan = BalanceSerializer(result, many = True)
-    print(serialBalan.data)
     return Response(serialBalan.data)
 
 @api_view(['PUT'])
@@ -134,14 +124,20 @@ def updateMov (request, pk):
 
 @api_view(['POST'])
 def createMov (request):
-    data = json.loads(request.data)
+    data = request.data
     mov = Movimiento.objects.create(
         descripcion = data['descripcion'],
         cantidad = data['cantidad'],
         fecha = data['fecha'],
-        tipo = 0
+        tipo = data['tipo']
     )
 
     serialMov = MovSerializer(mov, many=False)
 
     return Response(serialMov.data)
+
+@api_view(['DELETE'])
+def deleteMov (request, pk):
+    mov = Movimiento.objects.get(id=pk)
+    mov.delete()
+    return Response("delete succese")

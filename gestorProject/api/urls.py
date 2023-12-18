@@ -9,5 +9,6 @@ urlpatterns = [
   path('ingresos/year/', views.getIngresosByYear, name = 'ingresos_year'),
   path('balance/',views.getBalance, name='balance' ),
   path('update/<int:pk>/', views.updateMov, name="update-mov"), 
+  path('delete/<int:pk>/', views.deleteMov, name="delete-mov"), 
   path('create/', views.createMov, name="create-mov"), 
 ]

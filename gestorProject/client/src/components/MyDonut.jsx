@@ -20,7 +20,6 @@ export const MyDonut = () => {
                 data={ings}
                 category="cantidad"
                 index="descripcion"
-                colors={["rose", "yellow", "orange", "indigo", "blue", "emerald"]}
                 valueFormatter={valueFormatter}
               /> :
               <></>}
@@ -32,7 +31,6 @@ export const MyDonut = () => {
               data={gast}
               category="cantidad"
               index="descripcion"
-              colors={["rose", "yellow", "orange", "indigo", "blue", "emerald"]}
               valueFormatter={valueFormatter}
             /> :
             <></>}
