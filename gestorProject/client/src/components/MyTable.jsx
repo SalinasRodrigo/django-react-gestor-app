@@ -17,12 +17,15 @@ import {
 import { useMovs } from "../hooks/useMovs";
 import { TrashIcon } from "../icons/TrashIcon";
 import { EditIcon } from "../icons/EditIcon";
+import { UpdateForm } from "./UpdateForm";
 
 export const MyTable = ({ head }) => {
   const { ings, setIngresos, gast, setGastos } = useMovs();
 
-  const handleUpdate = (a) => {
-    console.log(a);
+  const handleUpdate = (id) => {
+    const dialog = document.getElementById(`update-dialog-${id}`)
+    console.log(dialog)
+    dialog.showModal()
   };
 
   const handleDelete = (id, tipo) => {
@@ -64,9 +67,12 @@ export const MyTable = ({ head }) => {
                       <TableCell>{item.fecha}</TableCell>
                       <TableCell>{item.cantidad}</TableCell>
                       <TableCell className="table-icons">
-                        <button onClick={() => handleUpdate(item.id, item.tipo)}>
+                        <button onClick={() => handleUpdate(item.id)}>
                           <EditIcon />
                         </button>
+                        <dialog id={`update-dialog-${item.id}`}>
+                          <UpdateForm id={item.id} tipo={item.tipo}/>
+                        </dialog>
                         <button onClick={() => handleDelete(item.id, item.tipo)}>
                           <TrashIcon />
                         </button>
@@ -95,9 +101,12 @@ export const MyTable = ({ head }) => {
                       <TableCell>{item.fecha}</TableCell>
                       <TableCell>{item.cantidad}</TableCell>
                       <TableCell className="table-icons">
-                        <button onClick={() => handleUpdate(item.id, item.tipo)}>
+                        <button onClick={() => handleUpdate(item.id)}>
                           <EditIcon />
                         </button>
+                        <dialog id={`update-dialog-${item.id}`}>
+                          <UpdateForm id={item.id} tipo={item.tipo}/>
+                        </dialog>
                         <button onClick={() => handleDelete(item.id, item.tipo)}>
                           <TrashIcon />
                         </button>
