@@ -12,13 +12,13 @@ export const UpdateForm = ({id, tipo}) => {
     const dialog = document.getElementById(`update-dialog-${id}`)
     console.log(newMov.fecha)
 
-    // fetch(`/api/update/${id}/`,{
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(newMov)
-    // })
+    fetch(`/api/update/${id}/`,{
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(newMov)
+    })
 
     if (tipo == 1){
       const stateIndex = ings.findIndex(item => item.id === id)

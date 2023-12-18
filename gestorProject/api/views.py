@@ -65,13 +65,16 @@ def getRoutes(request):
 @api_view(['GET'])
 def getAllGastos (request):
     movimientos = (Movimiento.objects.all()
-                   .filter(tipo=0))
+                   .filter(tipo=0)
+                   .order_by('-fecha'))
     serialMov = MovSerializer(movimientos, many=True)
     return Response(serialMov.data)
 
 @api_view(['GET'])
 def getAllIngresos (request):
-    movimientos = Movimiento.objects.all().filter( tipo = 1 )
+    movimientos = (Movimiento.objects.all()
+                   .filter(tipo=1)
+                   .order_by('-fecha'))
     serialMov = MovSerializer(movimientos, many=True)
     return Response(serialMov.data)
 
