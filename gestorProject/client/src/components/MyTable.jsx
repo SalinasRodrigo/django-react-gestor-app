@@ -22,10 +22,9 @@ import { UpdateForm } from "./UpdateForm";
 export const MyTable = ({ head }) => {
   const { ings, setIngresos, gast, setGastos } = useMovs();
 
-  const handleUpdate = (id) => {
-    const dialog = document.getElementById(`update-dialog-${id}`)
-    console.log(dialog)
-    dialog.showModal()
+  const handleShow = (id) => {
+    const dialog = document.getElementById(id);
+    dialog.showModal();
   };
 
   const handleDelete = (id, tipo) => {
@@ -35,11 +34,18 @@ export const MyTable = ({ head }) => {
         "Content-type": "application/json",
       },
     });
-    if (tipo == 1){
-      setIngresos(prevState => prevState.filter(item => item.id != id))
-    }else{
-      setGastos(prevState => prevState.filter(item => item.id != id))
+    if (tipo == 1) {
+      setIngresos((prevState) => prevState.filter((item) => item.id != id));
+    } else {
+      setGastos((prevState) => prevState.filter((item) => item.id != id));
     }
+    const dialog = document.getElementById(`delete-dialog-${id}`);
+    dialog.close();
+  };
+
+  const handleClose = (id) => {
+    const dialog = document.getElementById(id);
+    dialog.close();
   };
 
   return (
@@ -63,19 +69,54 @@ export const MyTable = ({ head }) => {
               {ings ? (
                 <TableBody>
                   {ings.map((item) => (
-                    <TableRow key={item.id}>
+                    <TableRow key={item.name}>
+                      <TableCell>{item.descripcion}</TableCell>
                       <TableCell>{item.fecha}</TableCell>
                       <TableCell>{item.cantidad}</TableCell>
                       <TableCell className="table-icons">
-                        <button onClick={() => handleUpdate(item.id)}>
+                        <button
+                          onClick={() => handleShow(`update-dialog-${item.id}`)}
+                        >
                           <EditIcon />
                         </button>
                         <dialog id={`update-dialog-${item.id}`}>
-                          <UpdateForm id={item.id} tipo={item.tipo}/>
+                          <button
+                            onClick={() =>
+                              handleClose(`update-dialog-${item.id}`)
+                            }
+                          >
+                            Cerrar
+                          </button>
+                          <UpdateForm id={item.id} tipo={item.tipo} />
                         </dialog>
-                        <button onClick={() => handleDelete(item.id, item.tipo)}>
+                        <button
+                          onClick={() => handleShow(`delete-dialog-${item.id}`)}
+                        >
                           <TrashIcon />
                         </button>
+                        <dialog id={`delete-dialog-${item.id}`}>
+                          <Card>
+                            <Title>
+                              Esta seguro que desea eliminar este movimiento?
+                            </Title>
+                            <div className="dialog-btns">
+                              <button
+                                className="delete-btn"
+                                onClick={() => handleDelete(item.id, item.tipo)}
+                              >
+                                Eliminar
+                              </button>
+                              <button
+                                className="cancel-btn"
+                                onClick={() =>
+                                  handleClose(`delete-dialog-${item.id}`)
+                                }
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          </Card>
+                        </dialog>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -98,18 +139,54 @@ export const MyTable = ({ head }) => {
                 <TableBody>
                   {gast.map((item) => (
                     <TableRow key={item.name}>
+                      <TableCell>{item.descripcion}</TableCell>
                       <TableCell>{item.fecha}</TableCell>
                       <TableCell>{item.cantidad}</TableCell>
                       <TableCell className="table-icons">
-                        <button onClick={() => handleUpdate(item.id)}>
+                        <button
+                          onClick={() => handleShow(`update-dialog-${item.id}`)}
+                        >
                           <EditIcon />
                         </button>
                         <dialog id={`update-dialog-${item.id}`}>
-                          <UpdateForm id={item.id} tipo={item.tipo}/>
+                          <button
+                            className="close-btn"
+                            onClick={() =>
+                              handleClose(`update-dialog-${item.id}`)
+                            }
+                          >
+                            x
+                          </button>
+                          <UpdateForm id={item.id} tipo={item.tipo} />
                         </dialog>
-                        <button onClick={() => handleDelete(item.id, item.tipo)}>
+                        <button
+                          onClick={() => handleShow(`delete-dialog-${item.id}`)}
+                        >
                           <TrashIcon />
                         </button>
+                        <dialog id={`delete-dialog-${item.id}`}>
+                          <Card>
+                            <Title>
+                              Esta seguro que desea eliminar este movimiento?
+                            </Title>
+                            <div className="dialog-btns">
+                              <button
+                                className="delete-btn"
+                                onClick={() => handleDelete(item.id, item.tipo)}
+                              >
+                                Eliminar
+                              </button>
+                              <button
+                                className="cancel-btn"
+                                onClick={() =>
+                                  handleClose(`delete-dialog-${item.id}`)
+                                }
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          </Card>
+                        </dialog>
                       </TableCell>
                     </TableRow>
                   ))}

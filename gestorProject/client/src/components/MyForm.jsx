@@ -12,16 +12,6 @@ import { useMovs } from "../hooks/useMovs";
 export const MyForm = () => {
   const {setIngresos, setGastos } = useMovs();
 
-  // const updateMove = () => {
-  //   fetch(`/api/update/${id}/`,{
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify(mov)
-  //   })
-  // }
-
   const createMove = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -60,8 +50,8 @@ export const MyForm = () => {
 
   return (
     <Card className="formulario">
-      <TabGroup>
-        <TabList variant="solid" className="pl-2 pr-2">
+      <TabGroup className="h-full form-tab">
+        <TabList variant="solid" className="w-full p-2">
           <Title>Nuevo Movimiento</Title>
           <Tab>Ingresos</Tab>
           <Tab>Gastos</Tab>
@@ -86,7 +76,7 @@ export const MyForm = () => {
               <label htmlFor="fecha">Fecha</label>
               <input className="my-input" type="date" name="fecha" required />
               <input type="hidden" name="tipo" value={1} />
-              <button type="submit">submit</button>
+              <button type="submit" className="submit-btn">Guardar</button>
             </form>
           </TabPanel>
           <TabPanel>
@@ -108,7 +98,7 @@ export const MyForm = () => {
               <label htmlFor="fecha">Fecha</label>
               <input className="my-input" type="date" name="fecha" required />
               <input type="hidden" name="tipo" value={0} />
-              <button type="submit">submit</button>
+              <button type="submit" className="submit-btn">Guardar</button>
             </form>
           </TabPanel>
         </TabPanels>

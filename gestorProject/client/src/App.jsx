@@ -9,7 +9,7 @@ function App() {
   return (
     <MovProvider>
       <main>
-        <MyTable head={['Fecha', 'Monto']}/>
+        <MyTable head={['Descripción','Fecha', 'Monto']}/>
         <MyDonut />
         <MyForm/>
         <MyChart />
