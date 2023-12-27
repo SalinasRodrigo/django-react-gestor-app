@@ -4,7 +4,7 @@ import { useMovs } from "../hooks/useMovs";
 
 
 export const MyChart = () => {
-  const {gast, ings} = useMovs()
+  const {gastoMensual, ingresoMensual} = useMovs()
 
   const valueFormatter = function(number) {
     return "Gs. " + new Intl.NumberFormat("py").format(number).toString();
@@ -20,11 +20,11 @@ export const MyChart = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            {gast ? 
+            {gastoMensual ? 
             <AreaChart
               className="h-72"
-              data={gast}
-              index="fecha"
+              data={gastoMensual}
+              index="month"
               colors={["red"]}
               categories={["cantidad"]}
               valueFormatter={valueFormatter}
@@ -32,11 +32,11 @@ export const MyChart = () => {
             <></>}
           </TabPanel>
           <TabPanel>
-            {gast ? 
+            {ingresoMensual ? 
               <AreaChart
                 className="h-72"
-                data={ings}
-                index="fecha"
+                data={ingresoMensual}
+                index="month"
                 colors={["green"]}
                 categories={["cantidad"]}
                 valueFormatter={valueFormatter}

@@ -4,13 +4,18 @@ import { useMovs } from "../hooks/useMovs";
 const valueFormatter = (number) => `Gs. ${new Intl.NumberFormat("py").format(number).toString()}`;
 
 export const MyDonut = () => {
-  const {gast, ings} = useMovs()
+  const {gast, ings, balance} = useMovs()
+
+  const handleLabel = () => {
+    return valueFormatter(balance[1].cantidad - balance[0].cantidad)
+  }
   return(
     <Card className="dona">
       <TabGroup className="donas-tab">
         <TabList>
           <Tab>Ingresos</Tab>
           <Tab>Gastos</Tab>
+          <Tab>Balance</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -29,12 +34,25 @@ export const MyDonut = () => {
             <DonutChart
               className="mt-20"
               data={gast}
-              category="cantidad"
+              category="cantidad"   
               index="descripcion"
               valueFormatter={valueFormatter}
             /> :
             <></>}
-          </TabPanel> 
+          </TabPanel>
+          <TabPanel>
+            {balance ? 
+            <DonutChart
+              className="mt-20"
+              data={balance}
+              category="cantidad"
+              label={handleLabel()}
+              index="tipo"
+              colors={['red', 'green']}
+              valueFormatter={valueFormatter}
+            /> :
+            <></>}
+          </TabPanel>  
         </TabPanels>
       </TabGroup>
     </Card>

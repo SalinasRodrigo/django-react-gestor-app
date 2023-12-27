@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Movimiento, Suma
-from django.db.models import Sum, Count
+from .models import Movimiento
+from django.db.models import Sum
 from django.db.models.functions import  TruncMonth
 from .serializaers import MovSerializer, SumSerializer, BalanceSerializer
-import json
 
 
 @api_view(['GET'])
@@ -85,7 +84,8 @@ def getIngresosByYear(request):
               .annotate(month=TruncMonth('fecha'))
               .values('month')
               .annotate(cantidad=Sum('cantidad'))
-              .order_by('month'))
+              .order_by('month'))[:12]
+    print(result)
     serialSum = SumSerializer(result, many = True)
     return Response(serialSum.data)
 
@@ -96,7 +96,7 @@ def getGastosByYear(request):
               .annotate(month=TruncMonth('fecha'))
               .values('month')
               .annotate(cantidad=Sum('cantidad'))
-              .order_by('month'))
+              .order_by('month'))[:12]
     serialSum = SumSerializer(result, many = True)
     return Response(serialSum.data)
 
@@ -108,9 +108,9 @@ def getBalance(request):
               .order_by())
     for i in result:
         if (i['tipo'] == 0):
-            i['tipo'] = 'gastos'
+            i['tipo'] = 'Gastos'
         if (i['tipo'] == 1):
-            i['tipo'] = 'ingreso'
+            i['tipo'] = 'Ingreso'
     serialBalan = BalanceSerializer(result, many = True)
     return Response(serialBalan.data)
 
