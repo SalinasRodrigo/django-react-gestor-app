@@ -42,7 +42,6 @@ export function MovProvider({ children }) {
       .then((res) => res.json())
       .then((response) => {
         const mov = response;
-        console.log(mov)
         mov.forEach(element => {
           const fecha = new Date(element.month)
           const mes = fecha.toLocaleString('default', { month: 'short' }).toUpperCase(); 

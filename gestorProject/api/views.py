@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from datetime import date
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Movimiento
 from django.db.models import Sum
-from django.db.models.functions import  TruncMonth
+from django.db.models.functions import  TruncMonth, ExtractMonth
 from .serializaers import MovSerializer, SumSerializer, BalanceSerializer
 
 
@@ -85,7 +86,6 @@ def getIngresosByYear(request):
               .values('month')
               .annotate(cantidad=Sum('cantidad'))
               .order_by('month'))[:12]
-    print(result)
     serialSum = SumSerializer(result, many = True)
     return Response(serialSum.data)
 
@@ -102,7 +102,10 @@ def getGastosByYear(request):
 
 @api_view(['GET'])
 def getBalance(request):
+    today = date.today()
     result = (Movimiento.objects.all()
+              .annotate(month=ExtractMonth('fecha'))
+              .filter(month = str(today.month))
               .values('tipo')
               .annotate(cantidad=Sum('cantidad'))
               .order_by())

@@ -1,10 +1,34 @@
-import { Card, DonutChart, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@tremor/react"
+import { Card, DonutChart, Tab, TabGroup, TabList, TabPanel, TabPanels, Title } from "@tremor/react"
 import { useMovs } from "../hooks/useMovs";
+import { useEffect, useState } from "react";
 
 const valueFormatter = (number) => `Gs. ${new Intl.NumberFormat("py").format(number).toString()}`;
 
 export const MyDonut = () => {
   const {gast, ings, balance} = useMovs()
+
+  const [monthIngs, setMonthIngs] = useState(null)
+  const [monthGast, setMonthGast] = useState(null)
+
+  const filterMonth = () =>{
+    if (ings && gast){
+      const current = new Date()
+      const newIngs = ings.filter((item)=>{
+        const fecha = new Date (item.fecha)
+        return (fecha.getMonth() == current.getMonth())
+      })
+      const newGast = gast.filter((item)=>{
+        const fecha = new Date (item.fecha)
+        return (fecha.getMonth() == current.getMonth())
+      })
+      setMonthIngs(newIngs)
+      setMonthGast(newGast)
+    }
+  }
+
+  useEffect(()=>{
+    filterMonth()
+  }, [ings,gast])
 
   const handleLabel = () => {
     return valueFormatter(balance[1].cantidad - balance[0].cantidad)
@@ -13,16 +37,17 @@ export const MyDonut = () => {
     <Card className="dona">
       <TabGroup className="donas-tab">
         <TabList>
+          <Title>Movs. del mes</Title>
           <Tab>Ingresos</Tab>
           <Tab>Gastos</Tab>
           <Tab>Balance</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-              {ings ? 
+              {monthIngs ? 
               <DonutChart
                 className="mt-20"
-                data={ings}
+                data={monthIngs}
                 category="cantidad"
                 index="descripcion"
                 valueFormatter={valueFormatter}
@@ -30,10 +55,10 @@ export const MyDonut = () => {
               <></>}
           </TabPanel>
           <TabPanel>
-            {gast ? 
+            {monthGast ? 
             <DonutChart
               className="mt-20"
-              data={gast}
+              data={monthGast}
               category="cantidad"   
               index="descripcion"
               valueFormatter={valueFormatter}
