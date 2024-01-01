@@ -28,6 +28,7 @@ export const MyDonut = () => {
 
   useEffect(()=>{
     filterMonth()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ings,gast])
 
   const handleLabel = () => {

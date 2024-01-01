@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Card } from "@tremor/react";
+import { Card, Title } from "@tremor/react";
 import { useMovs } from "../hooks/useMovs";
 
 export const UpdateForm = ({id, tipo}) => {
@@ -50,8 +50,14 @@ export const UpdateForm = ({id, tipo}) => {
     event.target.reset();
   };
 
+  const handleClose = () => {
+    const dialog = document.getElementById(`update-dialog-${id}`);
+    dialog.close();
+  };
+
   return (
-    <Card className="formulario">
+    <Card className="formulario update-form">
+      <Title>Actualizar movimiento</Title>
       <form onSubmit={updateMove}>
         <label htmlFor="descripcion">Descripción</label>
         <input className="my-input" type="text" name="descripcion" required />
@@ -60,7 +66,10 @@ export const UpdateForm = ({id, tipo}) => {
         <label htmlFor="fecha">Fecha</label>
         <input className="my-input" type="date" name="fecha" required />
         <input type="hidden" name="tipo" value={1} />
-        <button type="submit">submit</button>
+        <div className="dialog-btns">
+          <button type="submit" className="submit-btn p-2">Guardar</button>
+          <button onClick={handleClose} className="cancel-btn p-2">Cancelar</button>
+        </div>    
       </form>
     </Card>
   );

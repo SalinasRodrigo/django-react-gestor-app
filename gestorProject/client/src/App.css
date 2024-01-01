@@ -62,7 +62,6 @@ main{
 .submit-btn{
   color:#33b249;
   border: solid 2px #33b249;
-  padding: 0.5em;
   margin-top: 20px;
   border-radius: 0.5em;
   transition: all 0.5s;
@@ -76,6 +75,7 @@ main{
 .my-input{
   width: 100%;
   font-size: 0.835rem;
+  min-width: 15rem;
   padding: 8px 16px;
   border: solid 1px lightgray;
   border-radius: 0.5rem;
@@ -110,7 +110,6 @@ dialog{
 .dialog-btns{
   font-size: 15px;
   font-weight: 600;
-  margin-top: 20px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -120,7 +119,7 @@ dialog{
 .cancel-btn{
   color:#5783db;
   border: solid 2px #5783db;
-  padding: 1em;
+  margin-top: 20px;
   border-radius: 0.5em;
   transition: all 0.5s;
 }
@@ -133,7 +132,7 @@ dialog{
 .delete-btn{
   color:#ED0800;
   border: solid 2px #ED0800;
-  padding: 1em;
+  margin-top: 20px;
   border-radius: 0.5em;
   transition: all 0.5s;
 }
@@ -142,4 +141,3 @@ dialog{
   background-color:#ED0800;
   color: #eee;
 }
-

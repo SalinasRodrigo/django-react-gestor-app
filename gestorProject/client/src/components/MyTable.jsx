@@ -80,13 +80,6 @@ export const MyTable = ({ head }) => {
                           <EditIcon />
                         </button>
                         <dialog id={`update-dialog-${item.id}`}>
-                          <button
-                            onClick={() =>
-                              handleClose(`update-dialog-${item.id}`)
-                            }
-                          >
-                            Cerrar
-                          </button>
                           <UpdateForm id={item.id} tipo={item.tipo} />
                         </dialog>
                         <button
@@ -101,13 +94,13 @@ export const MyTable = ({ head }) => {
                             </Title>
                             <div className="dialog-btns">
                               <button
-                                className="delete-btn"
+                                className="delete-btn p-4"
                                 onClick={() => handleDelete(item.id, item.tipo)}
                               >
                                 Eliminar
                               </button>
                               <button
-                                className="cancel-btn"
+                                className="cancel-btn p-4"
                                 onClick={() =>
                                   handleClose(`delete-dialog-${item.id}`)
                                 }
@@ -149,14 +142,6 @@ export const MyTable = ({ head }) => {
                           <EditIcon />
                         </button>
                         <dialog id={`update-dialog-${item.id}`}>
-                          <button
-                            className="close-btn"
-                            onClick={() =>
-                              handleClose(`update-dialog-${item.id}`)
-                            }
-                          >
-                            x
-                          </button>
                           <UpdateForm id={item.id} tipo={item.tipo} />
                         </dialog>
                         <button
@@ -171,13 +156,13 @@ export const MyTable = ({ head }) => {
                             </Title>
                             <div className="dialog-btns">
                               <button
-                                className="delete-btn"
+                                className="delete-btn p-4"
                                 onClick={() => handleDelete(item.id, item.tipo)}
                               >
                                 Eliminar
                               </button>
                               <button
-                                className="cancel-btn"
+                                className="cancel-btn p-4"
                                 onClick={() =>
                                   handleClose(`delete-dialog-${item.id}`)
                                 }

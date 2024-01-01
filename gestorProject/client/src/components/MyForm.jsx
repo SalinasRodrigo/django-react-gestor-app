@@ -76,7 +76,7 @@ export const MyForm = () => {
               <label htmlFor="fecha">Fecha</label>
               <input className="my-input" type="date" name="fecha" required />
               <input type="hidden" name="tipo" value={1} />
-              <button type="submit" className="submit-btn">Guardar</button>
+              <button type="submit" className="submit-btn p-2">Guardar</button>
             </form>
           </TabPanel>
           <TabPanel>
@@ -98,7 +98,7 @@ export const MyForm = () => {
               <label htmlFor="fecha">Fecha</label>
               <input className="my-input" type="date" name="fecha" required />
               <input type="hidden" name="tipo" value={0} />
-              <button type="submit" className="submit-btn">Guardar</button>
+              <button type="submit" className="submit-btn p-2">Guardar</button>
             </form>
           </TabPanel>
         </TabPanels>
